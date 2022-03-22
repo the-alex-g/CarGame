@@ -7,7 +7,7 @@ func _input(event:InputEvent)->void:
 	if not _can_continue:
 		return
 	
-	if event is InputEventKey:
+	if event.is_pressed():
 		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Main/Main.tscn")
 
