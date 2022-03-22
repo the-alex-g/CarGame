@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Resources/BlueFill.tres" type="StyleBox" id=1]
+[ext_resource path="res://Resources/RedFill.tres" type="StyleBox" id=2]
+[ext_resource path="res://Main/HUD.gd" type="Script" id=3]
+[ext_resource path="res://Resources/Background.tres" type="StyleBox" id=4]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="Player1Health" type="ProgressBar" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -40.0
+margin_right = 100.0
+margin_bottom = -10.0
+custom_styles/fg = ExtResource( 1 )
+custom_styles/bg = ExtResource( 4 )
+max_value = 5.0
+step = 1.0
+value = 5.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player2Health" type="ProgressBar" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -40.0
+margin_right = -10.0
+margin_bottom = -10.0
+custom_styles/fg = ExtResource( 2 )
+custom_styles/bg = ExtResource( 4 )
+max_value = 5.0
+value = 5.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOverLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.0
+margin_right = 20.0
+margin_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2

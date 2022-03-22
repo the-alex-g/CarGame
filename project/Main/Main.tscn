@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Main/Main.gd" type="Script" id=2]
+[ext_resource path="res://Main/HUD.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 512, 1 )
@@ -13,11 +14,12 @@ extents = Vector2( 1, 300 )
 script = ExtResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 483, 302 )
+position = Vector2( 412, 300 )
+rotation = 3.14159
 player_id = 0
 
 [node name="Player2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 92, 39 )
+position = Vector2( 612, 300 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 512, 0 )
@@ -43,12 +45,11 @@ position = Vector2( 1024, 300 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
 shape = SubResource( 2 )
 
-[node name="Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="HUD" parent="." instance=ExtResource( 3 )]
 
+[connection signal="game_over" from="." to="HUD" method="_on_Main_game_over"]
+[connection signal="update_player_health" from="." to="HUD" method="_on_Main_update_player_health"]
 [connection signal="dead" from="Player" to="." method="_on_Player_dead"]
+[connection signal="update_health" from="Player" to="." method="_on_Player_update_health"]
 [connection signal="dead" from="Player2" to="." method="_on_Player_dead"]
+[connection signal="update_health" from="Player2" to="." method="_on_Player_update_health"]

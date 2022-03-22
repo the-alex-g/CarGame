@@ -2,10 +2,10 @@ class_name Player
 extends KinematicBody2D
 
 signal dead(player)
+signal update_health(new_value, player)
 
 const COLORS := [Color.blue, Color.red]
-const STYLE_PATHS := ["res://BlueFill.tres", "res://RedFill.tres"]
-const PATH_TO_BULLET := "res://Bullet.tscn"
+const PATH_TO_BULLET := "res://Player/Bullet.tscn"
 
 export var speed := 200.0
 export var player_id := 1
@@ -15,13 +15,9 @@ var _health := 5
 
 onready var _polygon = $CollisionPolygon2D as CollisionPolygon2D
 onready var _shoot_position = $ShootPosition as Position2D
-onready var _healthbar = $ProgressBar as ProgressBar
 
 func _ready()->void:
 	_poly_data = _polygon.polygon
-	var style = load(STYLE_PATHS[player_id]) as StyleBox
-	_healthbar.set("custom_styles/fg", style)
-	_healthbar.value = 5.0
 
 
 func _physics_process(delta:float)->void:
@@ -35,6 +31,7 @@ func _physics_process(delta:float)->void:
 	var velocity := Vector2.RIGHT
 	velocity = velocity.rotated(rotation)
 	velocity *= speed * delta
+	# warning-ignore:return_value_discarded
 	move_and_collide(velocity)
 
 
@@ -53,7 +50,7 @@ func _shoot()->void:
 
 
 func damage(amount:int)->void:
-	_health -= 1
-	_healthbar.value = _health
+	_health -= amount
 	if _health <= 0:
 		emit_signal("dead", player_id)
+	emit_signal("update_health", _health, player_id)
