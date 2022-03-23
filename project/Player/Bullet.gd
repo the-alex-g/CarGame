@@ -12,7 +12,7 @@ func _process(delta:float)->void:
 	var collision := move_and_collide(Vector2.RIGHT.rotated(_direction) * SPEED * delta)
 	if collision != null:
 		var collider := collision.collider
-		if collider is Player:
+		if collider is Player or collider is AUI:
 			if collider.player_id != _player_id:
 				collider.damage(1)
 		queue_free()

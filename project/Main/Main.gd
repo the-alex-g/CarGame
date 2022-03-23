@@ -3,6 +3,8 @@ extends Node2D
 signal update_player_health(new_value, player_id)
 signal game_over(loser_id)
 
+export var is_aui := false
+
 onready var _game_over_timer = $GameOverTimer as Timer
 
 func _on_Player_dead(player:int)->void:
@@ -15,5 +17,9 @@ func _on_Player_update_health(new_value:int, player:int)->void:
 
 
 func _on_GameOverTimer_timeout()->void:
-	# warning-ignore:return_value_discarded
-	get_tree().change_scene("res://Main/Main.tscn")
+	if is_aui:
+		# warning-ignore:return_value_discarded
+		get_tree().change_scene("res://Main/AUI/AUIMain.tscn")
+	else:
+		# warning-ignore:return_value_discarded
+		get_tree().change_scene("res://Main/Main.tscn")
